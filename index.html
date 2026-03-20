@@ -20,12 +20,20 @@
   <a id="authLink" class="btn" href="#">Uberでログイン</a>
   <p class="note">※ 社内のデータ一元管理のため、認証をお願いします。</p>
   <script>
-    const GAS_URL = 'https://script.google.com/a/sente-inc.com/macros/s/AKfycbwL-aO1U9cWjOOpRo1NKV_C3-oaZs-zMJ1RQs58Zmlt/exec';
+    const CLIENT_ID    = 'sS9vOPi7V3vK6g9GZec5hGRlUHjNGXar';
+    const REDIRECT_URI = 'https://script.google.com/a/sente-inc.com/macros/s/AKfycbwL-aO1U9cWjOOpRo1NKV_C3-oaZs-zMJ1RQs58Zmlt/exec';
+    const SCOPE        = 'eats.store eats.order eats.report offline_access';
 
     document.getElementById('storeName').addEventListener('input', function() {
       const name = this.value.trim();
       if (name) {
-        document.getElementById('authLink').href = GAS_URL + '?action=auth&state=' + encodeURIComponent(name);
+        const url = 'https://auth.uber.com/oauth/v2/authorize'
+          + '?response_type=code'
+          + '&client_id='    + encodeURIComponent(CLIENT_ID)
+          + '&redirect_uri=' + encodeURIComponent(REDIRECT_URI)
+          + '&scope='        + encodeURIComponent(SCOPE)
+          + '&state='        + encodeURIComponent(name);
+        document.getElementById('authLink').href = url;
       } else {
         document.getElementById('authLink').href = '#';
       }
