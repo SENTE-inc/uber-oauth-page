@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <style>
+    body{font-family:sans-serif;max-width:420px;margin:60px auto;padding:0 20px;color:#333;}
+    h2{color:#1a1a2e;}
+    input{width:100%;padding:12px;font-size:16px;border:1px solid #ccc;border-radius:8px;box-sizing:border-box;margin:8px 0 20px;}
+    a.btn{display:block;padding:14px;background:#000;color:#fff;border-radius:8px;font-size:16px;text-align:center;text-decoration:none;}
+    a.btn:hover{background:#333;}
+    .note{font-size:13px;color:#888;margin-top:16px;}
+  </style>
+</head>
+<body>
+  <h2>🔗 Uber Eats 連携</h2>
+  <p>店舗名を入力して「Uberでログイン」ボタンを押してください。</p>
+  <label>店舗名</label>
+  <input type="text" id="storeName" placeholder="例: 渋谷店">
+  <a id="authLink" class="btn" href="#">Uberでログイン</a>
+  <p class="note">※ 社内のデータ一元管理のため、認証をお願いします。</p>
+  <script>
+    // ▼ GASのデプロイURLに書き換える
+    const GAS_URL = 'https://script.google.com/macros/s/AKfycbwFYTkDKIS2ai-IKfZlgEJPLlgA3DmdKmvruA4v6OQnjVPNCBUeVJ4-i1doZwouq-Arzg/exec';
+
+    document.getElementById('storeName').addEventListener('input', function() {
+      const name = this.value.trim();
+      if (name) {
+        document.getElementById('authLink').href = GAS_URL + '?action=auth&state=' + encodeURIComponent(name);
+      } else {
+        document.getElementById('authLink').href = '#';
+      }
+    });
+  </script>
+</body>
+</html>
